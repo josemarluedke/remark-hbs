@@ -1,0 +1,14 @@
+/dist/
+/tmp/
+/.editorconfig
+/.env*
+/.eslintignore
+/.eslintrc.js
+/.prettierrc.js
+/.git/
+/.gitignore
+/.github
+/CONTRIBUTING.md
+/tests/
+/yarn.lock
+.gitkeep

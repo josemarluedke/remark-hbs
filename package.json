@@ -1,0 +1,35 @@
+{
+  "name": "remark-hbs",
+  "version": "0.1.0",
+  "description": "Remark plugin to escape Ember handlebars templates",
+  "keywords": [
+    "unified",
+    "remark",
+    "remark-plugin",
+    "plugin",
+    "markdown",
+    "ember",
+    "hbs",
+    "handlebars"
+  ],
+  "repository": "https://github.com/josemarluedke/remark-hbs",
+  "license": "MIT",
+  "author": "Josemar Luedke <josemarluedke@gmail.com>",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "unist-util-visit": "^2.0.2"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0",
+    "prettier": "^2.0.2",
+    "remark-html": "^11.0.1",
+    "remark-parse": "^7.0.2",
+    "unified": "^8.4.2"
+  },
+  "engines": {
+    "node": ">= 10.*"
+  }
+}

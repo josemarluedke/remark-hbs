@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it should keep all the HBS and HTML 1`] = `
+"<h1>Test</h1>
+<p>This is <em>testing</em> several features of ember templates</p>
+<h2>Just html</h2>
+<div>Something</div>
+<h2>Simple angle brackets components</h2>
+<MyComponent>
+This is my component
+</MyComponent>
+<h2>Complex components</h2>
+<MyForm as |form|>
+  <form.Input />
+  <form.Button type=\\"submit\\">Submit</form.Button>
+
+</MyForm>
+<OtherComponent @arg={{this.testing}} />
+<ComponentWithHtml>
+  <div class=\\"testing\\">testing</div>
+</ComponentWithHtml>
+<h2>Curry components</h2>
+{{my-component isTesting=true}}
+{{#other-component as |test|}}
+  {{test}}
+{{/other-component}}
+<h2>Curry values &#x26; helpers</h2>
+{{this.myValue}}
+{{value}}
+{{array isTesting=true isCool=true}}
+{{#each this.items as |item|}}
+  {{item}}
+{{/each}}
+{{#if this.isConditional}}
+  Yep
+{{else}}
+  Nope
+{{/if}}
+<h2>Modifiers</h2>
+<MyComponent {{did-insert this.coolStuff}} />
+<div {{did-insert this.coolStuff}}>
+  testing
+</div>
+"
+`;
