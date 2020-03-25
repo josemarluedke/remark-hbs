@@ -53,3 +53,38 @@ This is *testing* several features of ember templates
 <div {{did-insert this.coolStuff}}>
   testing
 </div>
+
+
+## Multi-line components
+
+<FormRadioGroup
+  @label="Grouped radio buttons"
+  @errors={{array "Nope"}}
+  as |Radio|>
+  <Radio
+    @value={{true}}
+    @label="Yes" />
+  <Radio
+    @value={{false}}
+    @label="No" />
+  <Radio
+    @value="maybe"
+    @label="Maybe" />
+</FormRadioGroup>
+
+
+## Inline Code & Code Block with HBS
+
+`{{this.something}`
+
+```hbs
+<FormRadioGroup
+  @label="Grouped radio buttons"
+  @errors={{array "1"}}
+  as |Radio|
+>
+  <Radio @value={{true}} @label="Yes" />
+  <Radio @value={{false}} @label="No" />
+  <Radio @value="maybe" @label="Maybe" />
+</FormRadioGroup>
+```
