@@ -1,5 +1,5 @@
 const visit = require('unist-util-visit');
-const escapeHBS = (node) => {
+const parseHBS = (node) => {
   if (!node.value) {
     return;
   }
@@ -8,6 +8,24 @@ const escapeHBS = (node) => {
   ) {
     node.type = 'html';
   }
+};
+
+const escapeCurlies = (node) => {
+  if (node.value) {
+    node.value = node.value.replace(/{{/g, '\\{{');
+  }
+
+  if (node.children) {
+    node.children.forEach(escapeCurlies);
+  }
+
+  if (!node.data) {
+    return;
+  }
+  if (!node.data.hChildren) {
+    return;
+  }
+  node.data.hChildren.forEach(escapeCurlies);
 };
 
 const removeParagraphsWithHTML = (ast) => {
@@ -24,7 +42,9 @@ const removeParagraphsWithHTML = (ast) => {
 
 module.exports = function () {
   return (ast) => {
-    visit(ast, 'text', escapeHBS);
+    visit(ast, 'text', parseHBS);
     visit(ast, 'paragraph', removeParagraphsWithHTML(ast));
+    visit(ast, 'code', escapeCurlies);
+    visit(ast, 'inlineCode', escapeCurlies);
   };
 };

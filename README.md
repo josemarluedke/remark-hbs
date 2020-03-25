@@ -1,6 +1,6 @@
 # remark-hbs ![](https://github.com/josemarluedke/remark-hbs/workflows/CI/badge.svg)
 
-[remark](https://github.com/remarkjs/remark) plugin to escape [Ember](https://emberjs.com/) handlebars templates.
+[Remark](https://github.com/remarkjs/remark) plugin that allows writing markdown with [Ember](https://emberjs.com/) handlebars templates.
 
 ## Install
 
@@ -47,6 +47,17 @@ Now, running `node example.js` yields:
   This is my component
 
 </MyComponent>
+```
+
+## Limitations
+
+- Closing an element tag in a new line is not supported as it is
+    parsed as blockquote in markdown. For example at line 3:
+```hbs
+<Something
+  class="something"
+>
+</Something>
 ```
 
 ## License

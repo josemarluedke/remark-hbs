@@ -41,5 +41,33 @@ This is my component
 <div {{did-insert this.coolStuff}}>
   testing
 </div>
+<h2>Multi-line components</h2>
+<FormRadioGroup
+  @label=\\"Grouped radio buttons\\"
+  @errors={{array \\"Nope\\"}}
+  as |Radio|>
+  <Radio
+    @value={{true}}
+    @label=\\"Yes\\" />
+  <Radio
+    @value={{false}}
+    @label=\\"No\\" />
+  <Radio
+    @value=\\"maybe\\"
+    @label=\\"Maybe\\" />
+
+</FormRadioGroup>
+<h2>Inline Code &#x26; Code Block with HBS</h2>
+<p><code>\\\\{{this.something}</code></p>
+<pre><code class=\\"language-hbs\\">&#x3C;FormRadioGroup
+  @label=\\"Grouped radio buttons\\"
+  @errors=\\\\{{array \\"1\\"}}
+  as |Radio|
+>
+  &#x3C;Radio @value=\\\\{{true}} @label=\\"Yes\\" />
+  &#x3C;Radio @value=\\\\{{false}} @label=\\"No\\" />
+  &#x3C;Radio @value=\\"maybe\\" @label=\\"Maybe\\" />
+&#x3C;/FormRadioGroup>
+</code></pre>
 "
 `;
