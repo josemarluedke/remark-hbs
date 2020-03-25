@@ -1,6 +1,6 @@
 {
   "name": "remark-hbs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Remark plugin that allows writing markdown with Ember handlebars templates",
   "keywords": [
     "unified",
