@@ -31,7 +31,6 @@ const html = require('remark-html')
 
 const template = unified()
   .use(markdown)
-  .use(slug)
   .use(hbs)
   .use(html)
   .processSync(fs.readFileSync('example.md'))
