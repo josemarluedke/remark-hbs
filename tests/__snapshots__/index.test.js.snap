@@ -11,8 +11,8 @@ This is my component
 </MyComponent>
 <h2>Complex components</h2>
 <MyForm as |form|>
-  <form.Input />
-  <form.Button type=\\"submit\\">Submit</form.Button>
+<form.Input />
+<form.Button type=\\"submit\\">Submit</form.Button>
 
 </MyForm>
 <OtherComponent @arg={{this.testing}} />
@@ -22,19 +22,19 @@ This is my component
 <h2>Curry components</h2>
 {{my-component isTesting=true}}
 {{#other-component as |test|}}
-  {{test}}
+{{test}}
 {{/other-component}}
 <h2>Curry values &#x26; helpers</h2>
 {{this.myValue}}
 {{value}}
 {{array isTesting=true isCool=true}}
 {{#each this.items as |item|}}
-  {{item}}
+{{item}}
 {{/each}}
 {{#if this.isConditional}}
-  Yep
+Yep
 {{else}}
-  Nope
+Nope
 {{/if}}
 <h2>Modifiers</h2>
 <MyComponent {{did-insert this.coolStuff}} />
@@ -43,18 +43,18 @@ This is my component
 </div>
 <h2>Multi-line components</h2>
 <FormRadioGroup
-  @label=\\"Grouped radio buttons\\"
-  @errors={{array \\"Nope\\"}}
-  as |Radio|>
-  <Radio
-    @value={{true}}
-    @label=\\"Yes\\" />
-  <Radio
-    @value={{false}}
-    @label=\\"No\\" />
-  <Radio
-    @value=\\"maybe\\"
-    @label=\\"Maybe\\" />
+@label=\\"Grouped radio buttons\\"
+@errors={{array \\"Nope\\"}}
+as |Radio|>
+<Radio
+@value={{true}}
+@label=\\"Yes\\" />
+<Radio
+@value={{false}}
+@label=\\"No\\" />
+<Radio
+@value=\\"maybe\\"
+@label=\\"Maybe\\" />
 
 </FormRadioGroup>
 <h2>Inline Code &#x26; Code Block with HBS</h2>
