@@ -40,11 +40,17 @@ const removeParagraphsWithHTML = (ast) => {
   };
 };
 
-module.exports = function () {
+module.exports = function (options = {}) {
   return (ast) => {
     visit(ast, 'text', parseHBS);
     visit(ast, 'paragraph', removeParagraphsWithHTML(ast));
-    visit(ast, 'code', escapeCurlies);
-    visit(ast, 'inlineCode', escapeCurlies);
+
+    if (options.escapeCurliesCode !== false) {
+      visit(ast, 'code', escapeCurlies);
+    }
+
+    if (options.escapeCurliesInlineCode !== false) {
+      visit(ast, 'inlineCode', escapeCurlies);
+    }
   };
 };
