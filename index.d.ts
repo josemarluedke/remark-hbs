@@ -1,6 +1,6 @@
-import { Plugin } from 'unified';
+import { Plugin, Settings } from 'unified';
 
-interface Options {
+interface Options extends Settings {
   /**
    * If the plugin should escape curlies in code blocks
    * @default true
