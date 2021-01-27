@@ -19,6 +19,7 @@
   "scripts": {
     "test": "jest"
   },
+  "types": "index.d.ts",
   "dependencies": {
     "unist-util-visit": "^2.0.2"
   },
