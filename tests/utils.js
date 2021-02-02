@@ -32,7 +32,15 @@ function transform(code) {
   return stack.processSync(code).toString();
 }
 
+function assertTransform({ input, expected }) {
+  const contents = transform(input);
+
+  expect(contents.trim()).toEqual(expected);
+  verifyContents(contents);
+}
+
 module.exports = {
   verifyContents,
   transform,
+  assertTransform,
 }
