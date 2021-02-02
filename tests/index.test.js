@@ -4,6 +4,9 @@ const markdown = require('remark-parse');
 const html = require('remark-html');
 const HBS = require('../index');
 const { parse } = require('ember-template-recast');
+const chalk = require('chalk');
+
+const emphasize = require('emphasize')
 
 const stack = unified().use(markdown).use(HBS).use(html);
 
@@ -19,6 +22,19 @@ for (let filePath of files) {
 
     // Validate that the contents are parseable
     // this will throw an exception if they are not
-    parse(contents);
+    try {
+      parse(contents);
+    } catch (e) {
+      console.log(
+        chalk.red(e.message) +
+          '\n\n' +
+        emphasize.highlight('handlebars', contents).value +
+          chalk.red(
+            '\n' +
+            `^ ----- contents of ${filePath} after [ markdown -> HBS -> html ] ----- ^`
+          )
+      );
+      throw e;
+    }
   });
 }
