@@ -13,6 +13,9 @@ Using autolink:
 ## Section Title A
 
 Duis molestie a felis ac feugiat. Pellentesque condimentum nisl et orci hendrerit lacinia.
+<Component::With::Nesting>
+  text
+</Component::With::Nesting>
 
 <Component::With::Nesting>
   <Nested::Component @foo="foo" @bar="bar" />
