@@ -5,6 +5,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel faucibus erat.
 Fusce elit neque, eleifend quis nulla at, aliquam sodales purus.
 
 
+Using autolink:
+
+<mailto:hello@example.com>
+
 
 ## Section Title A
 
@@ -24,7 +28,7 @@ Duis molestie a felis ac feugiat. Pellentesque condimentum nisl et orci hendreri
 Praesent et suscipit ante, ut auctor libero. Curabitur imperdiet vel quam eu mattis.
 Vivamus sapien quam, molestie eu arcu sit amet, facilisis semper elit. Donec nec imperdiet elit. Phasellus scelerisque faucibus orci, nec rhoncus odio fringilla eget.
 
-<Component::With::Nesting>
+<Component::With::Nesting @something="Cool">
   <Nested::Component @foo="foo" @bar="bar" />
   <Nested::Component @foo="foo" @bar="bar" />
   <Nested::Component @foo="foo" @bar="bar" />

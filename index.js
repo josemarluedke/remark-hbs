@@ -40,9 +40,29 @@ const removeParagraphsWithHTML = (ast) => {
   };
 };
 
+// Workaround for Ember Components using nested namespaces.
+// Commonmark idendifies <Cool::Component> as an autolink.
+const fixAutoLink = (node) => {
+  if (
+    node.children &&
+    node.children.length === 1 &&
+    node.url === node.children[0].value
+  ) {
+    if (/^[A-Z].+(::)[A-Z]/g.test(node.url)) {
+      node.type = 'html';
+      node.value = `<${node.url}>`;
+      delete node.url;
+      delete node.title;
+      delete node.children;
+    }
+  }
+};
+
 module.exports = function (options = {}) {
   return (ast) => {
     visit(ast, 'text', parseHBS);
+    visit(ast, 'link', fixAutoLink);
+
     visit(ast, 'paragraph', removeParagraphsWithHTML(ast));
 
     if (options.escapeCurliesCode !== false) {
