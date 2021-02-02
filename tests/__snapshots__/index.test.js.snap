@@ -74,20 +74,12 @@ as |Radio|>
 
 exports[`/fixtures/nested-namespaced.md: it should keep all the HBS and HTML 1`] = `
 "<h1>Page Title</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Cras vel faucibus erat. Ut non quam a ante fermentum
-facilisis in at felis. Sed enim elit, tincidunt et
-pulvinar eget, sagittis ut lacus.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel faucibus erat. Ut non quam a ante fermentum facilisis in at felis. Sed enim elit, tincidunt et pulvinar eget, sagittis ut lacus.</p>
 <p>Fusce elit neque, eleifend quis nulla at, aliquam sodales purus.</p>
 <p>Using autolink:</p>
 <p><a href=\\"mailto:hello@example.com\\">mailto:hello@example.com</a></p>
 <h2>Section Title A</h2>
-<p>Duis molestie a felis ac feugiat. Pellentesque condimentum nisl et
-orci hendrerit lacinia.</p>
-<Component::With::Nesting>
-
-text
-&#x3C;/Component::With::Nesting>
+<p>Duis molestie a felis ac feugiat. Pellentesque condimentum nisl et orci hendrerit lacinia.</p>
 <Component::With::Nesting>
 
 <Nested::Component @foo=\\"foo\\" @bar=\\"bar\\" />
@@ -98,11 +90,8 @@ text
 <Nested::Component @foo=\\"foo\\" @bar=\\"bar\\" />
 </Component::With::Nesting>
 <h2>Section Title B</h2>
-<p>Praesent et suscipit ante, ut auctor libero. Curabitur imperdiet
-vel quam eu mattis.
-Vivamus sapien quam, molestie eu arcu sit amet, facilisis semper elit.
-Donec nec imperdiet elit. Phasellus scelerisque faucibus orci, nec
-rhoncus odio fringilla eget.</p>
+<p>Praesent et suscipit ante, ut auctor libero. Curabitur imperdiet vel quam eu mattis.
+Vivamus sapien quam, molestie eu arcu sit amet, facilisis semper elit. Donec nec imperdiet elit. Phasellus scelerisque faucibus orci, nec rhoncus odio fringilla eget.</p>
 <Component::With::Nesting @something=\\"Cool\\">
 <Nested::Component @foo=\\"foo\\" @bar=\\"bar\\" />
 <Nested::Component @foo=\\"foo\\" @bar=\\"bar\\" />

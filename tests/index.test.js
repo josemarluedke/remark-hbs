@@ -46,7 +46,7 @@ test('can render text in a block component', () => {
 // this will throw an exception if they are not
 function verifyContents(code) {
   try {
-    parse(contents);
+    parse(code);
   } catch (e) {
     console.log(
       chalk.red(e.message) +
@@ -54,7 +54,7 @@ function verifyContents(code) {
         emphasize.highlight('handlebars', code).value +
         chalk.red(
           '\n' +
-            `^ ----- contents of ${filePath} after [ markdown -> HBS -> html ] ----- ^`
+            `^ ----- contents after [ markdown -> HBS -> html ] ----- ^`
         )
     );
     throw e;
