@@ -16,3 +16,22 @@ test('can render text in a block component', () => {
     `
   });
 });
+
+test('Nested components with nested components', () => {
+  assertTransform({
+    input: stripIndent`
+      <Component::With::Nesting>
+        <Nested::Component @foo="foo" @bar="bar" />
+        <Nested::Component @foo="foo" @bar="bar" />
+      </Component::With::Nesting>
+    `,
+    expected: stripIndent`
+      <Component::With::Nesting>
+
+      <Nested::Component @foo="foo" @bar="bar" />
+      <Nested::Component @foo="foo" @bar="bar" />
+      </Component::With::Nesting>
+    `
+  });
+
+})
