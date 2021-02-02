@@ -8,8 +8,9 @@ test('can render text in a block component', () => {
     </Nested::Component>
   `);
 
-  expect(contents).toEqual(stripIndent`
+  expect(contents.trim()).toEqual(stripIndent`
     <Nested::Component>
+
     some text
     </Nested::Component>
   `);

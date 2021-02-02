@@ -4,7 +4,7 @@ const parseHBS = (node) => {
     return;
   }
   if (
-    /^({{|<[A-Z]|<\/[A-Z]|<[a-zA-Z]+\.[a-zA-Z])/g.test(node.value.trimStart())
+    /({{|<[A-Z]|<\/[A-Z]|<[a-zA-Z]+\.[a-zA-Z])/g.test(node.value.trimStart())
   ) {
     node.type = 'html';
   }
