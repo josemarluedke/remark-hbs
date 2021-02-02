@@ -21,6 +21,7 @@
   },
   "types": "index.d.ts",
   "dependencies": {
+    "unist-builder": "^2.0.3",
     "unist-util-visit": "^2.0.3"
   },
   "devDependencies": {

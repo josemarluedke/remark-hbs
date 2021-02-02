@@ -12,6 +12,7 @@ test('can render text in a block component', () => {
       <Nested::Component>
 
       some text
+
       </Nested::Component>
     `
   });
@@ -33,5 +34,4 @@ test('Nested components with nested components', () => {
       </Component::With::Nesting>
     `
   });
-
-})
+});

@@ -80,6 +80,11 @@ exports[`/fixtures/nested-namespaced.md: it should keep all the HBS and HTML 1`]
 <p><a href=\\"mailto:hello@example.com\\">mailto:hello@example.com</a></p>
 <h2>Section Title A</h2>
 <p>Duis molestie a felis ac feugiat. Pellentesque condimentum nisl et orci hendrerit lacinia.</p>
+<Nested::Component>
+
+Some text
+
+</Nested::Component>
 <Component::With::Nesting>
 
 <Nested::Component @foo=\\"foo\\" @bar=\\"bar\\" />

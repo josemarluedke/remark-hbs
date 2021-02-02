@@ -14,6 +14,10 @@ Using autolink:
 
 Duis molestie a felis ac feugiat. Pellentesque condimentum nisl et orci hendrerit lacinia.
 
+<Nested::Component>
+  Some text
+</Nested::Component>
+
 <Component::With::Nesting>
   <Nested::Component @foo="foo" @bar="bar" />
   <Nested::Component @foo="foo" @bar="bar" />

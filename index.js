@@ -1,13 +1,38 @@
 const visit = require('unist-util-visit');
-const parseHBS = (node) => {
+var u = require('unist-builder');
+
+const parseHBS = (node, indexInParent, parent) => {
   if (!node.value) {
     return;
   }
-  if (
-    /({{|<[A-Z]|<\/[A-Z]|<[a-zA-Z]+\.[a-zA-Z])/g.test(node.value.trimStart())
-  ) {
+
+  if (isComponentInvocationOrHandlebars(node.value)) {
     node.type = 'html';
+    return;
   }
+
+  const lines = node.value.split('\n');
+  const toInsert = [];
+  lines.forEach((line) => {
+    if (isComponentInvocationOrHandlebars(line)) {
+      toInsert.push(u('html', `\n${line}`));
+    } else {
+      const lastNode = toInsert[toInsert.length - 1];
+      if (lastNode && lastNode.type === 'text') {
+        lastNode.value += `\n${line}`;
+      } else {
+        toInsert.push(u('text', line));
+      }
+    }
+  });
+
+  if (toInsert.length > 1) {
+    parent.children.splice(indexInParent, 1, ...toInsert);
+  }
+};
+
+const isComponentInvocationOrHandlebars = (text) => {
+  return /^({{|<[A-Z]|<\/[A-Z]|<[a-zA-Z]+\.[a-zA-Z])/g.test(text.trimStart());
 };
 
 const escapeCurlies = (node) => {
@@ -33,6 +58,7 @@ const removeParagraphsWithHTML = (ast) => {
     if (!node.children) {
       return;
     }
+
     if (node.children[0].type === 'html') {
       let index = ast.children.findIndex((item) => item === node);
       ast.children.splice(index, 1, ...node.children);
