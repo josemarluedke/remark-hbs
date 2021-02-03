@@ -11,4 +11,5 @@
 /CONTRIBUTING.md
 /tests/
 /yarn.lock
+yarn-error.log
 .gitkeep
