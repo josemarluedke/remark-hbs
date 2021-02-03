@@ -69,6 +69,10 @@ as |Radio|>
   &#x3C;Radio @value=\\"maybe\\" @label=\\"Maybe\\" />
 &#x3C;/FormRadioGroup>
 </code></pre>
+<h1>Component inline with text</h1>
+<p>some text</p>
+<Link @href=\\"a url\\">click me</Link>
+more text
 "
 `;
 

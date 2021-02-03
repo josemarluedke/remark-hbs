@@ -88,3 +88,9 @@ This is *testing* several features of ember templates
   <Radio @value="maybe" @label="Maybe" />
 </FormRadioGroup>
 ```
+
+# Component inline with text
+
+some text
+<Link @href="a url">click me</Link>
+more text
