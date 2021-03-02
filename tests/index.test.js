@@ -35,3 +35,51 @@ test('Nested components with nested components', () => {
     `
   });
 });
+
+test('Nested component invocation within a named block with an empty body', () => {
+  assertTransform({
+    input: stripIndent`
+      <Table>
+        <:body as |Entry|>
+          <Entry>
+            Text
+          </Entry>
+        </:body>
+      </Table>
+    `,
+    expected: stripIndent`
+      <Table>
+        <:body as |Entry|>
+          <Entry>
+            Text
+          </Entry>
+        </:body>
+      </Table>
+    `
+  });
+});
+
+test('Nested component invocation with a named block / slot', () => {
+  assertTransform({
+    ignoreIndentationChanges: true,
+    ignoreLineBreakChanges: true,
+    input: stripIndent`
+      <Styleguide::DefinitionsTable>
+        <:body as |Entry|>
+          <Entry>
+            text
+          </Entry>
+        </:body>
+      </Styleguide::DefinitionsTable>
+    `,
+    expected: stripIndent`
+      <Styleguide::DefinitionsTable>
+        <:body as |Entry|>
+          <Entry>
+            text
+          </Entry>
+        </:body>
+      </Styleguide::DefinitionsTable>
+    `
+  });
+});
