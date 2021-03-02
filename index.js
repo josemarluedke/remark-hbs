@@ -32,7 +32,9 @@ const parseHBS = (node, indexInParent, parent) => {
 };
 
 const isComponentInvocationOrHandlebars = (text) => {
-  return /^({{|<[A-Z]|<\/[A-Z]|<[a-zA-Z]+\.[a-zA-Z])/g.test(text.trimStart());
+  return /^({{|<[A-Z]|<\/[A-Z]|<:[a-zA-Z]|<\/:[a-zA-Z]|<[a-zA-Z]+\.[a-zA-Z])/g.test(
+    text.trimStart()
+  );
 };
 
 const escapeCurlies = (node) => {

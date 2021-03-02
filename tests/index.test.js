@@ -42,7 +42,7 @@ test('Nested component invocation within a named block with an empty body', () =
       <Table>
         <:body as |Entry|>
           <Entry>
-
+            Text
           </Entry>
         </:body>
       </Table>
@@ -51,7 +51,7 @@ test('Nested component invocation within a named block with an empty body', () =
       <Table>
         <:body as |Entry|>
           <Entry>
-
+            Text
           </Entry>
         </:body>
       </Table>
@@ -61,6 +61,8 @@ test('Nested component invocation within a named block with an empty body', () =
 
 test('Nested component invocation with a named block / slot', () => {
   assertTransform({
+    ignoreIndentationChanges: true,
+    ignoreLineBreakChanges: true,
     input: stripIndent`
       <Styleguide::DefinitionsTable>
         <:body as |Entry|>
@@ -69,7 +71,6 @@ test('Nested component invocation with a named block / slot', () => {
           </Entry>
         </:body>
       </Styleguide::DefinitionsTable>
-
     `,
     expected: stripIndent`
       <Styleguide::DefinitionsTable>
