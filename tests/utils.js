@@ -7,7 +7,6 @@ const markdown = require('remark-parse');
 const html = require('remark-html');
 const HBS = require('../index');
 
-
 // Validate that the contents are parseable
 // this will throw an exception if they are not
 function verifyContents(code) {
@@ -24,7 +23,7 @@ function verifyContents(code) {
     );
     throw e;
   }
-};
+}
 
 const stack = unified().use(markdown).use(HBS).use(html);
 
@@ -32,15 +31,39 @@ function transform(code) {
   return stack.processSync(code).toString();
 }
 
-function assertTransform({ input, expected }) {
+function assertTransform({
+  input,
+  expected,
+  ignoreIndentationChanges = false,
+  ignoreLineBreakChanges = false
+}) {
   const contents = transform(input);
 
-  expect(contents.trim()).toEqual(expected);
+  let _actual = contents.trim();
+  let _expected = expected || input;
+
+  if (ignoreIndentationChanges) {
+    _actual = _actual
+      .split('\n')
+      .map((s) => s.trim())
+      .join('\n');
+    _expected = _expected
+      .split('\n')
+      .map((s) => s.trim())
+      .join('\n');
+  }
+
+  if (ignoreLineBreakChanges) {
+    _actual = _actual.split('\n').filter(Boolean).join('\n');
+    _expected = _expected.split('\n').filter(Boolean).join('\n');
+  }
+
   verifyContents(contents);
+  expect(_actual).toEqual(_expected);
 }
 
 module.exports = {
   verifyContents,
   transform,
-  assertTransform,
-}
+  assertTransform
+};
