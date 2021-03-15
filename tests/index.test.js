@@ -59,6 +59,31 @@ test('Nested component invocation within a named block with an empty body', () =
   });
 });
 
+test('inline named blocks', () => {
+  assertTransform({
+    ignoreIndentationChanges: true,
+    ignoreLineBreakChanges: true,
+    input: stripIndent`
+      <Table::Nested>
+        <:head>a</:head>
+        <:body>b</:body>
+        <:foot>
+          foo
+        </:foot>
+      </Table::Nested>
+    `,
+    expected: stripIndent`
+      <Table::Nested>
+        <:head>a</:head>
+        <:body>b</:body>
+        <:foot>
+          foo
+        </:foot>
+      </Table::Nested>
+    `,
+  });
+});
+
 test('Nested component invocation with a named block / slot', () => {
   assertTransform({
     ignoreIndentationChanges: true,
@@ -83,3 +108,23 @@ test('Nested component invocation with a named block / slot', () => {
     `
   });
 });
+
+test('Yielded components with html block content', () => {
+  assertTransform({
+    ignoreIndentationChanges: true,
+    ignoreLineBreakChanges: true,
+    input: stripIndent`
+      <Styleguide::Columns as |c|>
+        <c.error>long string of text text<br>text></c.error>
+        <c.error>text<br>text></c.error>
+      </Styleguide::Columns>
+    `,
+    expected: stripIndent`
+      <Styleguide::Columns as |c|>
+        <c.error>long string of text text<br>text></c.error>
+        <c.error>text<br>text></c.error>
+      </Styleguide::Columns>
+    `,
+
+  });
+})
