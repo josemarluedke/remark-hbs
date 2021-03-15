@@ -91,14 +91,13 @@ test('Yielded components with empty line within block', () => {
 
 test('Yielded component blocks can contain markdown', () => {
   assertTransform({
-    // the blank lines above and below the list are significant
+    // indentation level of the list item is significant
+    // further indentation converts to text
     input: stripIndent`
       <Styleguide::Columns as |c|>
         <c.column>
-
-          - Item A
-          - Item B
-
+        - Item A
+        - Item B
         </c.column>
       </Styleguide::Columns>
     `
