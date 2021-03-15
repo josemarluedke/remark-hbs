@@ -73,7 +73,7 @@ test('Yielded components with html block content', () => {
       </Styleguide::Columns>
     `,
   });
-})
+});
 
 test('Yielded components with empty line within block', () => {
   assertTransform({
@@ -87,4 +87,20 @@ test('Yielded components with empty line within block', () => {
       </Styleguide::Columns>
     `,
   });
-})
+});
+
+test('Yielded component blocks can contain markdown', () => {
+  assertTransform({
+    // the blank lines above and below the list are significant
+    input: stripIndent`
+      <Styleguide::Columns as |c|>
+        <c.column>
+
+          - Item A
+          - Item B
+
+        </c.column>
+      </Styleguide::Columns>
+    `
+  })
+});
