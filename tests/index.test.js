@@ -8,13 +8,6 @@ test('can render text in a block component', () => {
         some text
       </Nested::Component>
     `,
-    expected: stripIndent`
-      <Nested::Component>
-
-      some text
-
-      </Nested::Component>
-    `
   });
 });
 
@@ -26,13 +19,6 @@ test('Nested components with nested components', () => {
         <Nested::Component @foo="foo" @bar="bar" />
       </Component::With::Nesting>
     `,
-    expected: stripIndent`
-      <Component::With::Nesting>
-
-      <Nested::Component @foo="foo" @bar="bar" />
-      <Nested::Component @foo="foo" @bar="bar" />
-      </Component::With::Nesting>
-    `
   });
 });
 
@@ -47,32 +33,12 @@ test('Nested component invocation within a named block with an empty body', () =
         </:body>
       </Table>
     `,
-    expected: stripIndent`
-      <Table>
-        <:body as |Entry|>
-          <Entry>
-            Text
-          </Entry>
-        </:body>
-      </Table>
-    `
   });
 });
 
 test('inline named blocks', () => {
   assertTransform({
-    ignoreIndentationChanges: true,
-    ignoreLineBreakChanges: true,
     input: stripIndent`
-      <Table::Nested>
-        <:head>a</:head>
-        <:body>b</:body>
-        <:foot>
-          foo
-        </:foot>
-      </Table::Nested>
-    `,
-    expected: stripIndent`
       <Table::Nested>
         <:head>a</:head>
         <:body>b</:body>
@@ -86,8 +52,6 @@ test('inline named blocks', () => {
 
 test('Nested component invocation with a named block / slot', () => {
   assertTransform({
-    ignoreIndentationChanges: true,
-    ignoreLineBreakChanges: true,
     input: stripIndent`
       <Styleguide::DefinitionsTable>
         <:body as |Entry|>
@@ -97,34 +61,16 @@ test('Nested component invocation with a named block / slot', () => {
         </:body>
       </Styleguide::DefinitionsTable>
     `,
-    expected: stripIndent`
-      <Styleguide::DefinitionsTable>
-        <:body as |Entry|>
-          <Entry>
-            text
-          </Entry>
-        </:body>
-      </Styleguide::DefinitionsTable>
-    `
   });
 });
 
 test('Yielded components with html block content', () => {
   assertTransform({
-    ignoreIndentationChanges: true,
-    ignoreLineBreakChanges: true,
     input: stripIndent`
       <Styleguide::Columns as |c|>
         <c.error>long string of text text<br>text></c.error>
         <c.error>text<br>text></c.error>
       </Styleguide::Columns>
     `,
-    expected: stripIndent`
-      <Styleguide::Columns as |c|>
-        <c.error>long string of text text<br>text></c.error>
-        <c.error>text<br>text></c.error>
-      </Styleguide::Columns>
-    `,
-
   });
 })
