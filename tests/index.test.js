@@ -68,8 +68,22 @@ test('Yielded components with html block content', () => {
   assertTransform({
     input: stripIndent`
       <Styleguide::Columns as |c|>
-        <c.error>long string of text text<br>text></c.error>
-        <c.error>text<br>text></c.error>
+        <c.error>long string of text text<br/>text</c.error>
+        <c.error>text<br/>text</c.error>
+      </Styleguide::Columns>
+    `,
+  });
+})
+
+test('Yielded components with empty line within block', () => {
+  assertTransform({
+    input: stripIndent`
+      <Styleguide::Columns as |c|>
+        <c.error>
+          long string of text text
+
+          text
+        </c.error>
       </Styleguide::Columns>
     `,
   });
