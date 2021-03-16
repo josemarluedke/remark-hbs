@@ -103,3 +103,15 @@ test('Yielded component blocks can contain markdown', () => {
     `
   })
 });
+
+test('Yielded component blocks can have blank lines', () => {
+  assertTransform({
+    input: stripIndent`
+      <Styleguide::Columns as |c|>
+        <c.column>
+
+        </c.column>
+      </Styleguide::Columns>
+    `
+  })
+});
