@@ -1,6 +1,15 @@
 const {stripIndent} = require('common-tags');
 const {assertTransform} = require('./utils');
 
+test('HTML Entities remain as HTML Entities', () => {
+  assertTransform({
+    input: stripIndent`
+      text
+      some text &lt;example&gt;
+    `,
+  });
+});
+
 test('can render text in a block component', () => {
   assertTransform({
     input: stripIndent`
