@@ -115,3 +115,15 @@ test('Yielded component blocks can have blank lines', () => {
     `
   })
 });
+
+test('Yielded component blocks can have html', () => {
+  assertTransform({
+    input: stripIndent`
+      <Styleguide::Columns as |c|>
+        <c.column>
+          <ul></ul>
+        </c.column>
+      </Styleguide::Columns>
+    `
+  })
+});
