@@ -1,5 +1,5 @@
-const { stripIndent } = require('common-tags');
-const { assertTransform } = require('./utils');
+const {stripIndent} = require('common-tags');
+const {assertTransform} = require('./utils');
 
 test('can render text in a block component', () => {
   assertTransform({
@@ -89,6 +89,9 @@ test('Yielded components with html block content', () => {
 
 
 // TODO: "text" is interpreted as code
+//       need to somehow dedent the block?
+//       for every nesting of html / components, the required indentation
+//       for a markdown codeblock should also increase
 test.skip('Yielded components with empty line within block', () => {
   assertTransform({
     input: stripIndent`
