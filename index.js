@@ -1,20 +1,26 @@
 const visit = require('unist-util-visit');
 var u = require('unist-builder');
 
-const TAG_SPLIT = /([^<]+)?(<[^>]+>)*/
-const mightHaveTag = str => str ? str.indexOf('<') < str.indexOf('>') : false;
+const TAG_SPLIT = /([^<]+)?(<[^>]+>)*/;
+const mightHaveTag = (str) =>
+  str ? str.indexOf('<') < str.indexOf('>') : false;
 
 const splitTags = (str) => {
   if (!mightHaveTag(str)) return [str];
 
-  let [_, ...result] = str.match(TAG_SPLIT)
+  let [_, ...result] = str.match(TAG_SPLIT);
 
   result = (result || []).filter(Boolean).reduce((acc, subStr, i) => {
     let previous = acc[i - 1];
     let previousExists = typeof previous !== 'undefined';
-    let previousIsComponent = previousExists && isComponentInvocationOrHandlebars(previous)
+    let previousIsComponent =
+      previousExists && isComponentInvocationOrHandlebars(previous);
 
-    if (i > 0 && !isComponentInvocationOrHandlebars(subStr) && !previousIsComponent) {
+    if (
+      i > 0 &&
+      !isComponentInvocationOrHandlebars(subStr) &&
+      !previousIsComponent
+    ) {
       acc[i - 1] = `${previous || ''}${subStr}`;
     } else {
       acc.push(subStr);
@@ -32,10 +38,10 @@ const splitTags = (str) => {
   }
 
   return result.flat().filter(Boolean);
-}
+};
 
 const parseHBS = (node, indexInParent, parent) => {
-  recursion = 0
+  recursion = 0;
   if (!node.value) {
     return;
   }
@@ -71,7 +77,7 @@ const parseHBS = (node, indexInParent, parent) => {
 const COMPONENT_REGEX = /^(<\/?[A-Z][a-z0.9.-:]+|<\/?[a-zA-Z]+\.[a-zA-z]+)/;
 const ANGLE_BRACKET_REGEX = /^<\/?/;
 const BLOCK_REGEX = /^<\/?:[^>]+>/;
-const HBS_REGEX = /^\{\{/
+const HBS_REGEX = /^\{\{/;
 const TAG_REGEX = /^<[^>]+>/;
 
 const isComponentInvocationOrHandlebars = (text) => {
@@ -82,7 +88,10 @@ const isComponentInvocationOrHandlebars = (text) => {
   let isComponentIdentifier = new RegExp(COMPONENT_REGEX, 'g').test(str);
   let isNamedBlock = new RegExp(BLOCK_REGEX, 'g').test(str);
 
-  return isHbs || (isTag && isAngleBracket && (isComponentIdentifier || isNamedBlock));
+  return (
+    isHbs ||
+    (isTag && isAngleBracket && (isComponentIdentifier || isNamedBlock))
+  );
 };
 
 const escapeCurlies = (node) => {

@@ -1,5 +1,5 @@
-const {stripIndent} = require('common-tags');
-const {assertTransform} = require('./utils');
+const { stripIndent } = require('common-tags');
+const { assertTransform } = require('./utils');
 
 test('HTML Entities remain as HTML Entities', () => {
   assertTransform({
@@ -10,7 +10,7 @@ test('HTML Entities remain as HTML Entities', () => {
     expected: stripIndent`
       <p>text
       some text &#x3C;example></p>
-    `,
+    `
   });
 });
 
@@ -20,7 +20,7 @@ test('can render text in a block component', () => {
       <Nested::Component>
         some text
       </Nested::Component>
-    `,
+    `
   });
 });
 
@@ -31,7 +31,7 @@ test('Nested components with nested components', () => {
         <Nested::Component @foo="foo" @bar="bar" />
         <Nested::Component @foo="foo" @bar="bar" />
       </Component::With::Nesting>
-    `,
+    `
   });
 });
 
@@ -45,7 +45,7 @@ test('Nested component invocation within a named block with an empty body', () =
           </Entry>
         </:body>
       </Table>
-    `,
+    `
   });
 });
 
@@ -59,7 +59,7 @@ test('inline named blocks', () => {
           foo
         </:foot>
       </Table::Nested>
-    `,
+    `
   });
 });
 
@@ -73,7 +73,7 @@ test('Nested component invocation with a named block / slot', () => {
           </Entry>
         </:body>
       </Styleguide::DefinitionsTable>
-    `,
+    `
   });
 });
 
@@ -96,10 +96,9 @@ test('Yielded components with html block content', () => {
           text
         </c.error>
       </Styleguide::Columns>
-    `,
+    `
   });
 });
-
 
 // TODO: "text" is interpreted as code
 //       need to somehow dedent the block?
@@ -115,7 +114,7 @@ test.skip('Yielded components with empty line within block', () => {
           text
         </c.error>
       </Styleguide::Columns>
-    `,
+    `
   });
 });
 
@@ -143,7 +142,7 @@ test('Yielded component blocks can contain markdown', () => {
         </c.column>
       </Styleguide::Columns>
     `
-  })
+  });
 });
 
 test('Yielded component blocks can have blank lines', () => {
@@ -155,7 +154,7 @@ test('Yielded component blocks can have blank lines', () => {
         </c.column>
       </Styleguide::Columns>
     `
-  })
+  });
 });
 
 test('Yielded component blocks can have html', () => {
@@ -175,5 +174,5 @@ test('Yielded component blocks can have html', () => {
         </c.column>
       </Styleguide::Columns>
     `
-  })
+  });
 });
