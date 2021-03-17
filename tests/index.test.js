@@ -5,7 +5,11 @@ test('HTML Entities remain as HTML Entities', () => {
   assertTransform({
     input: stripIndent`
       text
-      some text &lt;example&gt;
+      some text &#x0003C;example&gt;
+    `,
+    expected: stripIndent`
+      <p>text
+      some text &#x3C;example></p>
     `,
   });
 });

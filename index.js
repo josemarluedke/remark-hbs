@@ -11,13 +11,21 @@ const splitTags = (str) => {
 
   let [_, ...result] = str.match(TAG_SPLIT)
 
-  result = result.filter(Boolean);
+  result = (result || []).filter(Boolean).reduce((acc, subStr, i) => {
+    let previous = acc[i - 1];
+    let previousExists = previous !== undefined;
+    let previousIsComponent = previousExists && isComponentInvocationOrHandlebars(previous)
 
-  if (!result) {
-    return [str];
-  }
+    if (i > 0 && !isComponentInvocationOrHandlebars(subStr) && !previousIsComponent) {
+      acc[i - 1] = `${previous || ''}${subStr}`;
+    } else {
+      acc.push(subStr);
+    }
 
-  if (result.length === 1)  {
+    return acc;
+  }, []);
+
+  if (result.length === 1) {
     return [str];
   }
 
@@ -40,7 +48,7 @@ const parseHBS = (node, indexInParent, parent) => {
   }
 
   // When text nodes also have html on them, such as "text</endingTag>",
-    // split those up as well
+  // split those up as well
   const lines = node.value.split('\n').map(splitTags).flat();
 
   const toInsert = [];
@@ -62,10 +70,21 @@ const parseHBS = (node, indexInParent, parent) => {
   }
 };
 
-const COMPONENT_REGEX = /^({{|<\/?:?[A-Za-z]|<[a-zA-Z.]+)/;
+const COMPONENT_REGEX = /^(<\/?[A-Z][a-z0.9.-:]+|<\/?[a-zA-Z]+\.[a-zA-z]+)/;
+const ANGLE_BRACKET_REGEX = /^<\/?/;
+const BLOCK_REGEX = /^<\/?:[^>]+>/;
+const HBS_REGEX = /^\{\{/
+const TAG_REGEX = /^<[^>]+>/;
 
 const isComponentInvocationOrHandlebars = (text) => {
-  return new RegExp(COMPONENT_REGEX, 'g').test(text.trimStart());
+  let str = text.trimStart();
+  let isTag = new RegExp(TAG_REGEX, 'g').test(str);
+  let isHbs = new RegExp(HBS_REGEX, 'g').test(str);
+  let isAngleBracket = new RegExp(ANGLE_BRACKET_REGEX, 'g').test(str);
+  let isComponentIdentifier = new RegExp(COMPONENT_REGEX, 'g').test(str);
+  let isNamedBlock = new RegExp(BLOCK_REGEX, 'g').test(str);
+
+  return isHbs || (isTag && isAngleBracket && isComponentIdentifier) || (isTag && isNamedBlock);
 };
 
 const escapeCurlies = (node) => {
