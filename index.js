@@ -4,16 +4,14 @@ var u = require('unist-builder');
 const TAG_SPLIT = /([^<]+)?(<[^>]+>)*/
 const mightHaveTag = str => str ? str.indexOf('<') < str.indexOf('>') : false;
 
-let recursion = 0;
 const splitTags = (str) => {
-  if (recursion > 4) return [str];
   if (!mightHaveTag(str)) return [str];
 
   let [_, ...result] = str.match(TAG_SPLIT)
 
   result = (result || []).filter(Boolean).reduce((acc, subStr, i) => {
     let previous = acc[i - 1];
-    let previousExists = previous !== undefined;
+    let previousExists = typeof previous !== 'undefined';
     let previousIsComponent = previousExists && isComponentInvocationOrHandlebars(previous)
 
     if (i > 0 && !isComponentInvocationOrHandlebars(subStr) && !previousIsComponent) {
@@ -30,7 +28,7 @@ const splitTags = (str) => {
   }
 
   if (result.length > 1) {
-    result = result.map(subStr => splitTags(subStr));
+    result = result.map(splitTags);
   }
 
   return result.flat().filter(Boolean);
