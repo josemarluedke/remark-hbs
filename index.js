@@ -1,7 +1,41 @@
 const visit = require('unist-util-visit');
 var u = require('unist-builder');
 
+const TAG_SPLIT = /([^<]+)?(<[^>]+>)*/
+const mightHaveTag = str => str ? str.indexOf('<') < str.indexOf('>') : false;
+
+const splitTags = (str) => {
+  if (!mightHaveTag(str)) return [str];
+
+  let [_, ...result] = str.match(TAG_SPLIT)
+
+  result = (result || []).filter(Boolean).reduce((acc, subStr, i) => {
+    let previous = acc[i - 1];
+    let previousExists = typeof previous !== 'undefined';
+    let previousIsComponent = previousExists && isComponentInvocationOrHandlebars(previous)
+
+    if (i > 0 && !isComponentInvocationOrHandlebars(subStr) && !previousIsComponent) {
+      acc[i - 1] = `${previous || ''}${subStr}`;
+    } else {
+      acc.push(subStr);
+    }
+
+    return acc;
+  }, []);
+
+  if (result.length === 1) {
+    return [str];
+  }
+
+  if (result.length > 1) {
+    result = result.map(splitTags);
+  }
+
+  return result.flat().filter(Boolean);
+}
+
 const parseHBS = (node, indexInParent, parent) => {
+  recursion = 0
   if (!node.value) {
     return;
   }
@@ -11,7 +45,10 @@ const parseHBS = (node, indexInParent, parent) => {
     return;
   }
 
-  const lines = node.value.split('\n');
+  // When text nodes also have html on them, such as "text</endingTag>",
+  // split those up as well
+  const lines = node.value.split('\n').map(splitTags).flat();
+
   const toInsert = [];
   lines.forEach((line) => {
     if (isComponentInvocationOrHandlebars(line)) {
@@ -31,10 +68,21 @@ const parseHBS = (node, indexInParent, parent) => {
   }
 };
 
+const COMPONENT_REGEX = /^(<\/?[A-Z][a-z0.9.-:]+|<\/?[a-zA-Z]+\.[a-zA-z]+)/;
+const ANGLE_BRACKET_REGEX = /^<\/?/;
+const BLOCK_REGEX = /^<\/?:[^>]+>/;
+const HBS_REGEX = /^\{\{/
+const TAG_REGEX = /^<[^>]+>/;
+
 const isComponentInvocationOrHandlebars = (text) => {
-  return /^({{|<[A-Z]|<\/[A-Z]|<:[a-zA-Z]|<\/:[a-zA-Z]|<[a-zA-Z]+\.[a-zA-Z])/g.test(
-    text.trimStart()
-  );
+  let str = text.trimStart();
+  let isTag = new RegExp(TAG_REGEX, 'g').test(str);
+  let isHbs = new RegExp(HBS_REGEX, 'g').test(str);
+  let isAngleBracket = new RegExp(ANGLE_BRACKET_REGEX, 'g').test(str);
+  let isComponentIdentifier = new RegExp(COMPONENT_REGEX, 'g').test(str);
+  let isNamedBlock = new RegExp(BLOCK_REGEX, 'g').test(str);
+
+  return isHbs || (isTag && isAngleBracket && (isComponentIdentifier || isNamedBlock));
 };
 
 const escapeCurlies = (node) => {

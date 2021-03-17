@@ -34,8 +34,8 @@ function transform(code) {
 function assertTransform({
   input,
   expected,
-  ignoreIndentationChanges = false,
-  ignoreLineBreakChanges = false
+  ignoreIndentationChanges = true,
+  ignoreLineBreakChanges = true
 }) {
   const contents = transform(input);
 

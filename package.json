@@ -17,7 +17,8 @@
   "author": "Josemar Luedke <josemarluedke@gmail.com>",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:debug:named": "node --inspect-brk node_modules/.bin/jest --runInBand --watch --testNamePattern"
   },
   "types": "index.d.ts",
   "dependencies": {
@@ -33,7 +34,7 @@
     "prettier": "^2.2.1",
     "remark-html": "^13.0.1",
     "remark-parse": "^9.0.0",
-    "unified": "^9.2.0"
+    "unified": "^9.2.1"
   },
   "engines": {
     "node": ">= 10.*"
