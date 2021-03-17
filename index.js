@@ -84,7 +84,7 @@ const isComponentInvocationOrHandlebars = (text) => {
   let isComponentIdentifier = new RegExp(COMPONENT_REGEX, 'g').test(str);
   let isNamedBlock = new RegExp(BLOCK_REGEX, 'g').test(str);
 
-  return isHbs || (isTag && isAngleBracket && isComponentIdentifier) || (isTag && isNamedBlock);
+  return isHbs || (isTag && isAngleBracket && (isComponentIdentifier || isNamedBlock));
 };
 
 const escapeCurlies = (node) => {
