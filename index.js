@@ -5,6 +5,9 @@ const TAG_SPLIT = /([^<]+)?(<[^>]+>)*/;
 const mightHaveTag = (str) =>
   str ? str.indexOf('<') < str.indexOf('>') : false;
 
+// Node 10 Support
+const flattened = arr => [].concat(...arr);
+
 const splitTags = (str) => {
   if (!mightHaveTag(str)) return [str];
 
@@ -37,7 +40,7 @@ const splitTags = (str) => {
     result = result.map(splitTags);
   }
 
-  return result.flat().filter(Boolean);
+  return flattened(result).filter(Boolean);
 };
 
 const parseHBS = (node, indexInParent, parent) => {
@@ -53,7 +56,7 @@ const parseHBS = (node, indexInParent, parent) => {
 
   // When text nodes also have html on them, such as "text</endingTag>",
   // split those up as well
-  const lines = node.value.split('\n').map(splitTags).flat();
+  const lines = flattened(node.value.split('\n').map(splitTags));
 
   const toInsert = [];
   lines.forEach((line) => {
