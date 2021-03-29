@@ -24,6 +24,19 @@ test('can render text in a block component', () => {
   });
 });
 
+test('can render multi-line arguments', () => {
+  assertTransform({
+    input: stripIndent`
+      <MyComponent
+        @one={{1}}
+        @two={{2}}
+      >
+        some text
+      </MyComponent>
+    `
+  });
+});
+
 test('Nested components with nested components', () => {
   assertTransform({
     input: stripIndent`
