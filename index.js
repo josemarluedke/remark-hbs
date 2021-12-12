@@ -43,9 +43,7 @@ const splitTags = (str) => {
   return flattened(result).filter(Boolean);
 };
 
-let recursion;
 const parseHBS = (node, indexInParent, parent) => {
-  recursion = 0;
   if (!node.value) {
     return;
   }
