@@ -1,12 +1,12 @@
-const visit = require('unist-util-visit');
-var u = require('unist-builder');
+import { visit } from 'unist-util-visit';
+import { u } from 'unist-builder';
 
 const TAG_SPLIT = /([^<]+)?(<[^>]+>)*/;
 const mightHaveTag = (str) =>
   str ? str.indexOf('<') < str.indexOf('>') : false;
 
 // Node 10 Support
-const flattened = arr => [].concat(...arr);
+const flattened = (arr) => [].concat(...arr);
 
 const splitTags = (str) => {
   if (!mightHaveTag(str)) return [str];
@@ -43,6 +43,7 @@ const splitTags = (str) => {
   return flattened(result).filter(Boolean);
 };
 
+let recursion;
 const parseHBS = (node, indexInParent, parent) => {
   recursion = 0;
   if (!node.value) {
@@ -146,7 +147,7 @@ const fixAutoLink = (node) => {
   }
 };
 
-module.exports = function (options = {}) {
+export default function (options = {}) {
   return (ast) => {
     visit(ast, 'text', parseHBS);
     visit(ast, 'link', fixAutoLink);
@@ -161,4 +162,4 @@ module.exports = function (options = {}) {
       visit(ast, 'inlineCode', escapeCurlies);
     }
   };
-};
+}

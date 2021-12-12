@@ -16,27 +16,29 @@
   "license": "MIT",
   "author": "Josemar Luedke <josemarluedke@gmail.com>",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "jest",
+    "lint:js": "yarn prettier -c -w *js **/*.js",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
     "test:debug:named": "node --inspect-brk node_modules/.bin/jest --runInBand --watch --testNamePattern"
   },
   "types": "index.d.ts",
   "dependencies": {
-    "unist-builder": "^2.0.3",
-    "unist-util-visit": "^2.0.3"
+    "unist-builder": "^3.0.0",
+    "unist-util-visit": "^4.1.0"
   },
   "devDependencies": {
     "chalk": "^4.1.0",
-    "common-tags": "^1.8.0",
-    "ember-template-recast": "^5.0.1",
+    "common-tags": "^1.8.2",
+    "ember-template-recast": "^6.1.2",
     "emphasize": "^4.2.0",
-    "jest": "^26.6.3",
+    "jest": "^27.4.4",
     "prettier": "^2.2.1",
-    "remark-html": "^13.0.1",
-    "remark-parse": "^9.0.0",
-    "unified": "^9.2.1"
+    "remark-html": "^15.0.1",
+    "remark-parse": "^10.0.1",
+    "unified": "^10.1.1"
   },
   "engines": {
-    "node": ">= 10.*"
+    "node": ">= 14.*"
   }
 }

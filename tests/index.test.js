@@ -1,5 +1,5 @@
-const { stripIndent } = require('common-tags');
-const { assertTransform } = require('./utils');
+import { stripIndent } from 'common-tags';
+import { assertTransform } from './utils';
 
 test('HTML Entities remain as HTML Entities', () => {
   assertTransform({
