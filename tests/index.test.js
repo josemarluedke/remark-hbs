@@ -1,6 +1,8 @@
 import { stripIndent } from 'common-tags';
 import { assertTransform } from './utils';
 
+jest.useFakeTimers()
+
 test('HTML Entities remain as HTML Entities', () => {
   assertTransform({
     input: stripIndent`

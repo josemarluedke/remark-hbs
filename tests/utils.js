@@ -1,6 +1,6 @@
 import { parse } from 'ember-template-recast';
 import chalk from 'chalk';
-import emphasize from 'emphasize';
+import { emphasize } from 'emphasize';
 
 import { unified } from 'unified';
 import markdown from 'remark-parse';
