@@ -1,5 +1,7 @@
-const { stripIndent } = require('common-tags');
-const { assertTransform } = require('./utils');
+import { stripIndent } from 'common-tags';
+import { assertTransform } from './utils';
+
+jest.useFakeTimers()
 
 test('HTML Entities remain as HTML Entities', () => {
   assertTransform({

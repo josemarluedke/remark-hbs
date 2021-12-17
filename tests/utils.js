@@ -1,15 +1,15 @@
-const { parse } = require('ember-template-recast');
-const chalk = require('chalk');
-const emphasize = require('emphasize');
+import { parse } from 'ember-template-recast';
+import chalk from 'chalk';
+import { emphasize } from 'emphasize';
 
-const unified = require('unified');
-const markdown = require('remark-parse');
-const html = require('remark-html');
-const HBS = require('../index');
+import { unified } from 'unified';
+import markdown from 'remark-parse';
+import html from 'remark-html';
+import HBS from '../index';
 
 // Validate that the contents are parseable
 // this will throw an exception if they are not
-function verifyContents(code) {
+export function verifyContents(code) {
   try {
     parse(code);
   } catch (e) {
@@ -27,11 +27,11 @@ function verifyContents(code) {
 
 const stack = unified().use(markdown).use(HBS).use(html);
 
-function transform(code) {
+export function transform(code) {
   return stack.processSync(code).toString();
 }
 
-function assertTransform({
+export function assertTransform({
   input,
   expected,
   ignoreIndentationChanges = true,
@@ -61,9 +61,3 @@ function assertTransform({
   verifyContents(contents);
   expect(_actual).toEqual(_expected);
 }
-
-module.exports = {
-  verifyContents,
-  transform,
-  assertTransform
-};
