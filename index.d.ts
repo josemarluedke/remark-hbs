@@ -1,6 +1,12 @@
-import { Plugin, Settings } from 'unified';
+import type { Plugin, Settings } from 'unified';
 
-interface Options extends Settings {
+/**
+ * Extends unified's `Settings` so that the options object stays assignable
+ * wherever a processor's settings are expected. `Settings` is a weak type in
+ * unified 11 (`{[emptyObjectSymbol]?: never}`), so an unrelated interface would
+ * be rejected with TS2559 at those call sites.
+ */
+export interface RemarkHbsOptions extends Settings {
   /**
    * If the plugin should escape curlies in code blocks
    * @default true
@@ -14,12 +20,9 @@ interface Options extends Settings {
   escapeCurliesInlineCode?: boolean;
 }
 
-declare namespace remarkHbs {
-  interface Parse extends Plugin<[RemarkHbsOptions?]> {}
+/**
+ * Remark plugin that allows writing markdown with Ember handlebars templates.
+ */
+declare const remarkHbs: Plugin<[RemarkHbsOptions?]>;
 
-  type RemarkHbsOptions = Options;
-}
-
-declare const remarkHbs: remarkHbs.Parse;
-
-export = remarkHbs;
+export default remarkHbs;

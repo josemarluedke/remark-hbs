@@ -5,8 +5,11 @@
 ## Install
 
 ```
-yarn add remark-hbs
+pnpm add remark-hbs
 ```
+
+> **Note:** `remark-hbs` is an ESM-only package and requires Node.js
+> `^20.19.0 || >=22.12.0`.
 
 ## Usage
 
@@ -23,20 +26,20 @@ Say we have the following markdown file, `example.md`:
 And our script, `example.js`, looks as follows:
 
 ```js
-const fs = require('fs')
-const unified = require('unified')
-const markdown = require('remark-parse')
-const hbs = require('remark-hbs')
-const html = require('remark-html')
+import fs from 'node:fs';
+import { unified } from 'unified';
+import markdown from 'remark-parse';
+import hbs from 'remark-hbs';
+import html from 'remark-html';
 
 const template = unified()
   .use(markdown)
   .use(hbs)
-  .use(html)
+  .use(html, { sanitize: false })
   .processSync(fs.readFileSync('example.md'))
-  .toString()
+  .toString();
 
-console.log(template)
+console.log(template);
 ```
 
 Now, running `node example.js` yields:

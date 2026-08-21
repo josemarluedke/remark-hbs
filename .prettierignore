@@ -1,0 +1,9 @@
+node_modules
+pnpm-lock.yaml
+tests/__snapshots__
+
+# Test data: must stay byte-exact, reformatting would change rendered output
+tests/fixtures
+
+# Embedded markdown examples are indentation-significant to this plugin
+README.md
