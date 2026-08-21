@@ -50,5 +50,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
+          # Defaults to true, which makes the action run `pnpm store path` —
+          # which is exactly what cannot work on the Node under test.
+          package-manager-cache: false
       - run: node --version
       - run: ./node_modules/.bin/vitest run
