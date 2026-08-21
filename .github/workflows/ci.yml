@@ -7,22 +7,40 @@ on:
       - 'v*'
   pull_request: {}
 
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: 'true'
+
 jobs:
-  test:
-    name: Tests
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
-
-    env:
-      CI: 'true'
-
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: 10.x
-      - name: Install yarn
-        run: npm install -g yarn
-      - name: Install dependencies
-        run: yarn install
-      - name: Test
-        run: yarn test
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint
+
+  test:
+    name: Tests (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test

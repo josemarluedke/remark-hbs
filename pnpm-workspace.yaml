@@ -1,0 +1,4 @@
+# pnpm blocks dependency build scripts unless explicitly allowed here.
+# esbuild's postinstall installs the platform binary vitest needs.
+allowBuilds:
+  esbuild: true
