@@ -38,9 +38,17 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
+      # pnpm 11 needs Node >= 22.13 to run at all (it requires node:sqlite), so
+      # dependencies are installed with a Node it supports. The matrix version
+      # is then selected to actually execute the suite, which is the part that
+      # has to work on the lowest Node `engines` allows.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
       - uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm test
+      - run: node --version
+      - run: ./node_modules/.bin/vitest run
